@@ -8,6 +8,9 @@ Run this from the root of the project where you want the files installed:
 
 ```bash
 cd your-project
+```
+
+```bash
 curl -fsSL https://raw.githubusercontent.com/srmoralesomar/ralphwiggumloop/main/install.sh | bash
 ```
 
