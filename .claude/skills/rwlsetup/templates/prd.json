@@ -5,8 +5,8 @@
         "id": 1,
         "title": "<task title>",
         "description": "<task description>",
-        "acceptance": [
-          "<acceptance criteria>"
+        "acceptanceCriteria": [
+          "<explicit acceptance criteria>"
         ],
         "done": false
       },
@@ -14,8 +14,8 @@
         "id": 2,
         "title": "<task title>",
         "description": "<task description>",
-        "acceptance": [
-          "<acceptance criteria>"
+        "acceptanceCriteria": [
+          "<explicit acceptance criteria>"
         ],
         "done": false
       }

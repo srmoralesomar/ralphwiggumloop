@@ -6,6 +6,8 @@ disable-model-invocation: true
 
 # Ralph Wiggum Loop — Project Setup
 
+Ignore ralph-loop.sh. Don't read it.
+
 This skill walks the user through setting up a new project for the Ralph Wiggum Loop. It produces three files: `prd.json`, `progress.txt`, and `PROMPT.md`.
 
 ## Step 1: Gather Requirements
@@ -46,11 +48,11 @@ Break the core features into granular, independently-completable tasks. Each tas
 
 **Order tasks by priority:**
 
-1. Architectural decisions and core abstractions (scaffolding, storage, daemon core)
-2. Integration points between modules (e.g. wiring daemon to storage)
+1. Architectural decisions and core abstractions
+2. Integration points between modules
 3. Unknown unknowns and spike work
-4. Standard features and implementation (individual commands)
-5. Polish, cleanup, and quick wins (config, status, README, formatting)
+4. Standard features and implementation 
+5. Polish, cleanup, and quick wins (README, formatting)
 
 Present the draft PRD to the user for review. Adjust if they request changes.
 
