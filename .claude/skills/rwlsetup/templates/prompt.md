@@ -18,7 +18,7 @@ Skim relevant source files to understand the current state of the codebase.
 
 ## Pick a Task
 
-Read `prd.json` and select **one** task where `"done"` is `false`.
+Read `prd.json` and select ONE task where `"done"` is `false`.
 
 Choose based on this priority order:
 
@@ -75,3 +75,7 @@ If there are no tasks with `"done"` set to `false`:
 3. Ensure the build succeeds: `{{BUILD_CMD}}`
 4. Fix any remaining issues and commit the changes.
 5. Output exactly: `<promise>COMPLETE</promise>`
+
+## Remember
+
+- PICK AND WORK ON ONLY ONE TASK

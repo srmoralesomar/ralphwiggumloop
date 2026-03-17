@@ -1,5 +1,5 @@
 #!/bin/bash
-# ralph-loop.sh — Ralph Wiggum loop for snip
+# ralph-loop.sh — Ralph Wiggum loop
 # Usage: ./ralph-loop.sh [max_iterations]
 
 set -euo pipefail
@@ -43,7 +43,7 @@ cleanup() {
 trap cleanup EXIT
 
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}  🔁 Ralph Wiggum Loop — snip${NC}"
+echo -e "${CYAN}  🔁 Ralph Wiggum Loop"
 echo -e "${CYAN}  Max iterations: ${MAX_ITERATIONS}${NC}"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
@@ -84,7 +84,7 @@ fi
 
 # Initialize progress file if missing
 if [ ! -f "$PROGRESS_FILE" ]; then
-    echo "# snip — Ralph Loop Progress Log" > "$PROGRESS_FILE"
+    echo "# Ralph Wiggum Loop Progress Log" > "$PROGRESS_FILE"
     echo "" >> "$PROGRESS_FILE"
 fi
 
