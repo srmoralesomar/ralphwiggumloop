@@ -38,27 +38,37 @@ These settings make repeated autonomous runs smoother, but they are intentionall
 
 If `.claude/settings.json` already exists, the installer creates a timestamped backup (for example, `.claude/settings.json.bak.20260317163000`) and then installs this repo's settings file.
 
-## Quick start
+## Instructions
 
-1. Open your target project in Claude Code.
-2. Ensure `ralph-loop.sh` is executable (the installer does this automatically).
-3. Run:
+1. After installation, open your target project in Claude Code.
 
-```bash
-./ralph-loop.sh --help
-```
+2. Run the `/rwlsetup` skill in the Claude Code chat:
 
-First-time validation run:
+   ```
+   /rwlsetup
+   ```
 
-```bash
-./ralph-loop.sh 1
-```
+   The skill will ask you for your project name, a short description, the core features you want built, and your tech stack. From your answers it generates three files:
 
-Then run the full loop:
+   - `prd.json` — a prioritized task breakdown with acceptance criteria
+   - `progress.txt` — an append-only log that tracks what was done each iteration
+   - `PROMPT.md` — the iteration prompt the agent uses on every loop run
 
-```bash
-./ralph-loop.sh 20
-```
+   Review the draft PRD when Claude presents it and request any changes before confirming.
+
+3. Once setup is complete, run a single iteration to verify everything works:
+
+   ```bash
+   ./ralph-loop.sh 1
+   ```
+
+   After it finishes, check the new commit(s), review `progress.txt`, and confirm the first task is marked done in `prd.json`.
+
+4. When you're satisfied, run the full loop:
+
+   ```bash
+   ./ralph-loop.sh 20
+   ```
 
 ## Recommended: run in a Docker sandbox
 
