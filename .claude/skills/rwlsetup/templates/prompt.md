@@ -1,6 +1,10 @@
+@prd.json @progress.txt
+
 # {{PROJECT_NAME}} — Iteration Prompt
 
-You are building **{{PROJECT_NAME}}**: {{PROJECT_DESCRIPTION}}.
+You are contributing to **{{PROJECT_NAME}}**.
+
+{{PROJECT_DESCRIPTION}}.
 
 ## Before You Start
 
@@ -29,7 +33,7 @@ If multiple tasks share the same priority tier, prefer the one with the lowest `
 ## Implement
 
 - Implement the chosen task with tests where possible.
-- Keep commits small and focused — one commit per logical subtask is encouraged.
+- Keep commits small and focused. One commit per logical subtask is encouraged.
 - Follow the commit message format defined in `.claude/skills/rwlsetup/commitformat.md`.
 - Use global git settings for author name and email (do not override).
 
@@ -38,11 +42,11 @@ If multiple tasks share the same priority tier, prefer the one with the lowest `
 Before each commit, **all** of the following must pass:
 
 ```bash
-go test ./...
-go build -o {{BUILD_BINARY}} .
+{{TEST_CMD}}
+{{BUILD_CMD}}
 ```
 
-Do not commit if either command fails. Fix the issue first.
+Do not commit if any command fails. Fix the issue first.
 
 ## When the Task Is Done
 
@@ -51,6 +55,7 @@ Once all acceptance criteria are met and tests + build pass:
 1. Set `"done": true` for the completed task in `prd.json`.
 2. Append an entry to `progress.txt` (**do not overwrite existing content**) using the format defined in `.claude/skills/rwlsetup/templates/progressentry.txt`.
 3. Make a final commit that includes the updated `prd.json` and `progress.txt`.
+4. Exit.
 
 ## If You Get Stuck
 
@@ -65,7 +70,8 @@ If tests keep failing after a few attempts or you hit a blocker:
 
 If there are no tasks with `"done"` set to `false`:
 
-1. Run the full test suite: `go test ./...`
-2. Run `go vet ./...`
-3. Ensure `go build -o {{BUILD_BINARY}} .` succeeds.
-4. Output exactly: `<promise>COMPLETE</promise>`
+1. Run the full test suite: `{{TEST_CMD}}`
+2. Run the linter: `{{LINT_CMD}}`
+3. Ensure the build succeeds: `{{BUILD_CMD}}`
+4. Fix any remaining issues and commit the changes.
+5. Output exactly: `<promise>COMPLETE</promise>`

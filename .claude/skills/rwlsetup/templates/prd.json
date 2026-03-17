@@ -1,6 +1,5 @@
 {
     "project": "<project name>",
-    "description": "<project description>",
     "tasks": [
       {
         "id": 1,

@@ -3,4 +3,3 @@ TaskName: <task name>
 FilesChanged: <files changed>
 Notes: <notes or key decisions made with reasoning>
 Blockers: <blockers> (Optional)
-

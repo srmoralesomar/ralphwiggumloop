@@ -1,9 +1,7 @@
 ---
 name: rwlsetup
-description: >-
-  Sets up a new Ralph Wiggum Loop project by gathering requirements, generating
-  a PRD (prd.json), initializing progress.txt, and creating PROMPT.md. Invoke
-  manually when bootstrapping a new RWL-driven project.
+description: Sets up a new Ralph Wiggum Loop project by gathering requirements, generating a PRD (prd.json), initializing progress.txt, and creating PROMPT.md. Invoke manually when bootstrapping a new RWL-driven project.
+disable-model-invocation: true
 ---
 
 # Ralph Wiggum Loop — Project Setup
@@ -12,7 +10,7 @@ This skill walks the user through setting up a new project for the Ralph Wiggum 
 
 ## Step 1: Gather Requirements
 
-Use the **AskQuestion** tool to collect:
+Use the **AskUserQuestion** tool to collect:
 
 | Question | Purpose |
 |----------|---------|
@@ -24,14 +22,14 @@ Use the **AskQuestion** tool to collect:
 Example:
 
 ```
-AskQuestion:
+AskUserQuestion:
   Q1: "What is the name of your project?"
   Q2: "Describe the app or product in one or two sentences."
   Q3: "List the core features you want built."
   Q4: "What tech stack will you use? (e.g. Go, Python + Flask, TypeScript + React)"
 ```
 
-If AskQuestion is unavailable, ask conversationally.
+If AskUserQuestion is unavailable, ask conversationally.
 
 After gathering answers, confirm the full picture with the user before proceeding.
 
@@ -77,7 +75,20 @@ Replace the following placeholders with actual values:
 |-------------|-------|
 | `{{PROJECT_NAME}}` | The project name |
 | `{{PROJECT_DESCRIPTION}}` | The short description |
-| `{{BUILD_BINARY}}` | Binary output name (typically the lowercase project name) |
+| `{{TEST_CMD}}` | Command to run the test suite |
+| `{{BUILD_CMD}}` | Command to build the project |
+| `{{LINT_CMD}}` | Command to lint / vet the code |
+
+Derive the commands from the tech stack chosen in Step 1. Examples:
+
+| Tech stack | TEST_CMD | BUILD_CMD | LINT_CMD |
+|------------|----------|-----------|----------|
+| Go | `go test ./...` | `go build -o <binary> .` | `go vet ./...` |
+| Node / TypeScript | `npm test` | `npm run build` | `npm run lint` |
+| Python | `pytest` | *(omit or use a no-op like `echo "no build step"`)* | `ruff check .` |
+| Rust | `cargo test` | `cargo build` | `cargo clippy` |
+
+If the stack has no build step, replace `{{BUILD_CMD}}` with a comment explaining why (e.g. `# Python — no build step`). The agent will still gate commits on the remaining checks.
 
 ## Step 5: Initialize Git (if needed)
 
@@ -91,13 +102,19 @@ git commit -m "chore: initial project setup with PRD and prompt"
 
 ## Step 6: Confirm Setup
 
-Tell the user that setup is complete and they can start the loop:
-
-```bash
-./ralph-loop.sh
-```
-
 List the files created:
 - `prd.json` — product requirements with task breakdown
 - `progress.txt` — append-only progress log
 - `PROMPT.md` — iteration prompt for the agent
+
+Tell the user to start with a single iteration to make sure everything works:
+
+```bash
+./ralph-loop.sh 1
+```
+
+After that first run, they should review the commit(s), check `progress.txt`, and verify the task was marked done in `prd.json`. Once they're satisfied, they can let it rip:
+
+```bash
+./ralph-loop.sh 20
+```
