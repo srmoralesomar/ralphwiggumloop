@@ -7,6 +7,7 @@ set -e
 MAX_ITERATIONS=${1:-20}
 COUNT=0
 PROMPT_FILE="PROMPT.md"
+PRD_FILE="prd.json"
 PROGRESS_FILE="progress.txt"
 
 # Colors
@@ -40,6 +41,11 @@ if [ ! -f "$PROMPT_FILE" ]; then
     exit 1
 fi
 
+if [ ! -f "$PRD_FILE" ]; then
+    echo -e "${RED}Error: $PRD_FILE not found.${NC}"
+    exit 1
+fi
+
 # Initialize progress file if missing
 if [ ! -f "$PROGRESS_FILE" ]; then
     echo "# snip — Ralph Loop Progress Log" > "$PROGRESS_FILE"
@@ -61,18 +67,12 @@ while [ $COUNT -lt $MAX_ITERATIONS ]; do
     echo ""
     echo -e "${GREEN}━━━ Iteration ${COUNT}/${MAX_ITERATIONS} ━━━ ${TIMESTAMP} ━━━${NC}"
 
-    # Show current task
-    NEXT_TASK=$(python3 -c "
-import json
-with open('prd.json') as f:
-    data = json.load(f)
-for t in data['tasks']:
-    if not t['done']:
-        print(f\"Task {t['id']}: {t['title']}\")
-        break
-else:
-    print('ALL TASKS COMPLETE')
-" 2>/dev/null || echo "Could not read prd.json")
+    # Check for remaining work without requiring python3/jq.
+    if grep -Eq '"done"[[:space:]]*:[[:space:]]*false' "$PRD_FILE" 2>/dev/null; then
+        NEXT_TASK="Tasks remaining in prd.json"
+    else
+        NEXT_TASK="ALL TASKS COMPLETE"
+    fi
 
     echo -e "${YELLOW}  → ${NEXT_TASK}${NC}"
 
